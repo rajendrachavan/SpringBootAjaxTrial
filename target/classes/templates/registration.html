@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+<h2>Add an Employee</h2>
+    <form action="" method="post">
+        <table>
+            <tr>
+                <th><input type="text"  name="empname" id="empname" placeholder="Enter your Name."/></th>
+            </tr>
+            <tr>
+                <th><input type="text" name="email" id="email" placeholder="Enter your Email-Id."></th>
+            </tr>
+            <tr>
+                <td><input type="submit" id="register" onclick="postDataFromAPI();" value="Register"/>
+                <input type="reset" name="reset" value="Reset"/></td>
+            </tr>
+        </table>
+    </form>
+
+<script>
+	function postDataFromAPI() {
+
+		var modelObj = {
+				id: $("#id").val(),
+				empname: $("#empname").val(),
+				email: $("#email").val()
+		};
+
+		console.log("post data:"+modelObj);
+
+		 $.ajax({
+	            type: "POST",
+	            url: "http://localhost:8080/employees/postdata",
+	            headers: {
+	                "Content-Type": "application/json"
+	            },
+	            data: JSON.stringify(modelObj),
+	            success: function (data) {
+	            	console.log("POST API RESPONSE::"+data);
+	            },
+	            error: function (jqXHR, textStatus, errorThrown) {
+	            }
+	        });
+	}
+	</script>
+</body>
+</html>
